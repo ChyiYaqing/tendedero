@@ -28,9 +28,9 @@ struct PeggedView: View {
         .transaction { t in if item.falling { t.animation = nil } }
         .animation(.easeOut(duration: 0.16), value: item.flying)
         .onAppear(perform: arrive)
-        .onChange(of: item.flying) { was, now in if was && !now { land() } }
-        .onChange(of: line.gust) { _, _ in breeze() }
-        .onChange(of: copied) { _, isCopied in if isCopied { nudge(3) } }
+        .onChange(of: item.flying) { flying in if !flying { land() } }
+        .onChange(of: line.gust) { _ in breeze() }
+        .onChange(of: copied) { isCopied in if isCopied { nudge(3) } }
     }
 
     /// The photo fits inside the card area keeping its proportions, so the

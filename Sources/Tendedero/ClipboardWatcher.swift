@@ -48,7 +48,7 @@ final class ClipboardWatcher {
         // Whatever is on the clipboard already is old news.
         lastCount = NSPasteboard.general.changeCount
         let timer = Timer(timeInterval: 0.5, repeats: true) { [weak self] _ in
-            MainActor.assumeIsolated { self?.check() }
+            assumeMainActor { self?.check() }
         }
         RunLoop.main.add(timer, forMode: .common)
         self.timer = timer

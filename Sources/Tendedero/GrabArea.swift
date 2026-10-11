@@ -24,7 +24,7 @@ struct GrabArea: NSViewRepresentable {
         configure(view)
     }
 
-    private func configure(_ view: GrabView) {
+    @MainActor private func configure(_ view: GrabView) {
         let id = item.id
         let line = line
         let isRecording = item.isRecording
@@ -133,7 +133,7 @@ final class GrabView: NSView, NSDraggingSource {
         onPressChange(true)
         holdTimer?.invalidate()
         holdTimer = Timer.scheduledTimer(withTimeInterval: Self.holdDuration, repeats: false) { [weak self] _ in
-            MainActor.assumeIsolated {
+            assumeMainActor {
                 guard let self, self.downPoint != nil, !self.startedDrag else { return }
                 self.didLongPress = true
                 self.onPressChange(false)

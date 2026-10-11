@@ -40,11 +40,11 @@ final class QuickLook: NSObject, QLPreviewPanelDataSource, QLPreviewPanelDelegat
     // MARK: QLPreviewPanelDataSource
 
     nonisolated func numberOfPreviewItems(in panel: QLPreviewPanel!) -> Int {
-        MainActor.assumeIsolated { urls.count }
+        assumeMainActor { urls.count }
     }
 
     nonisolated func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
-        MainActor.assumeIsolated { urls.indices.contains(index) ? urls[index] as NSURL : nil }
+        assumeMainActor { urls.indices.contains(index) ? urls[index] as NSURL : nil }
     }
 
     // MARK: QLPreviewPanelDelegate
@@ -58,7 +58,7 @@ final class QuickLook: NSObject, QLPreviewPanelDataSource, QLPreviewPanelDelegat
         case 124: step = 1 // right arrow
         default: return false
         }
-        return MainActor.assumeIsolated {
+        return assumeMainActor {
             let next = panel.currentPreviewItemIndex + step
             guard urls.indices.contains(next) else { return true }
             panel.currentPreviewItemIndex = next
