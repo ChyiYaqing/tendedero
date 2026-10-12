@@ -778,7 +778,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         var components = URLComponents(string: "https://tendedero.app/")!
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
         var query = [URLQueryItem(name: "update", value: version)]
-        if let language = Bundle.main.preferredLocalizations.first, ["en", "es", "fr", "pt-BR", "ja", "ko", "zh-Hans"].contains(language) {
+        if let language = Bundle.main.preferredLocalizations.first, ["en", "es", "gl", "fr", "pt-BR", "ja", "ko", "zh-Hans"].contains(language) {
             query.append(URLQueryItem(name: "lang", value: language))
         }
         components.queryItems = query
